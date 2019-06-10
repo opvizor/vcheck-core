@@ -8,7 +8,7 @@ $SetupWizard = $False
 
 # Start of Settings
 # Report header
-$reportHeader = "Opvizor Performance Analyzer - vCheck"
+$reportHeader = "Opvizor PA vCheck"
 # Would you like the report displayed in the local browser once completed ?
 $DisplaytoScreen = $false
 # Display the report even if it is empty?
@@ -34,9 +34,9 @@ $SendAttachment = $false
 # Set the style template to use.
 $Style = "Clarity"
 # Do you want to include plugin details in the report?
-$reportOnPlugins = $true
+$reportOnPlugins = $false
 # List Enabled plugins first in Plugin Report?
-$ListEnabledPluginsFirst = $true
+$ListEnabledPluginsFirst = $false
 # Set the following setting to $true to see how long each Plugin takes to run as part of the report
 $TimeToRun = $true
 # Report on plugins that take longer than the following amount of seconds

@@ -5,10 +5,11 @@ $Header = "Connection Settings"
 $Comments = "Connection Plugin for connecting to vSphere"
 $Display = "None"
 $PluginCategory = "vSphere"
+Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false
 
 # Start of Settings
 # Please Specify the address (and optional port) of the vCenter server to connect to [servername(:port)]
-# $Server = ""
+$Server = "$ENV:viserver"
 # End of Settings
 
 # Update settings where there is an override
@@ -84,7 +85,6 @@ function Get-CorePlatform {
             $osName = "$(uname -v)"
             $osVersion = "$(uname -r)"
             $nodeName = "$(uname -n)"
-            $architecture = "$(uname -p)"
         }
         # Other
         else
@@ -105,12 +105,12 @@ function Get-CorePlatform {
 $Platform = Get-CorePlatform
 switch ($platform.OSFamily) {
     "Darwin" { 
-        $templocation = "/var/www/reports/vCheck"
+        $templocation = "/tmp"
         $Outputpath = $templocation
         Get-Module -ListAvailable PowerCLI* | Import-Module
     }
     "Linux" { 
-        $templocation = "/var/www/reports/vCheck"
+        $templocation = "/tmp"
         $Outputpath = $templocation
         Get-Module -ListAvailable PowerCLI* | Import-Module
     }
@@ -148,7 +148,7 @@ if($OpenConnection.IsConnected) {
    $VIConnection = $OpenConnection
 } else {
    Write-CustomOut ( "{0}: {1}" -f $pLang.connOpen, $Server )
-#   $VIConnection = Connect-VIServer -Server $VIServer -Port $Port -user "administrator@vsphere.local" -pass "VMware123."
+   $VIConnection = Connect-VIServer -Server $VIServer -Port $Port -user "$ENV:viuser" -pass "$ENV:vipass"
 }
 
 if (-not $VIConnection.IsConnected) {

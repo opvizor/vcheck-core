@@ -14,10 +14,6 @@ $ChartBackground = "FFFFFF"
 # Set Chart dimensions (WidthxHeight)
 $ChartSize = "200x200"
 
-# Header Images
-Add-ReportResource "Header-vCheck" ($StylePath + "\Header.jpg") -Used $true
-Add-ReportResource "Header-VMware" ($StylePath + "\Header-vmware.png") -Used $true
-
 # Hash table of key/value replacements
 if ($GUIConfig) {
     $StyleReplace = @{"_HEADER_" = ("'$reportHeader'");
@@ -11676,12 +11672,6 @@ $ReportHTML = @"
       <div class="content-area">
       <table width='100%' style='background-color: #002438; border-collapse: collapse; border: 0px; margin: 0; padding: 0;'>
       <tr>
-         <td>
-            <img src='cid:Header-vCheck' alt='vCheck' />
-         </td>
-         <td style='width: 171px'>
-            <img src='cid:Header-VMware' alt='VMware' />
-         </td>
       </tr>
    </table>
    _CONTENT_

@@ -327,10 +327,10 @@ Function Get-HTMLTable {
 	$XMLTable.table.SetAttribute("width", "100%")
 	
 	# If only one column, fix up the table header
-	if (($content | Get-Member -MemberType Properties).count -eq 1)
-	{
-		$XMLTable.table.tr[0].th = (($content | Get-Member -MemberType Properties) | Select-Object -ExpandProperty Name -First 1).ToString()
-	}
+	#if (($content | Get-Member -MemberType Properties).count -eq 1)
+	#{
+	#	$XMLTable.table.tr[0].th = (($content | Get-Member -MemberType Properties) | Select-Object -ExpandProperty Name -First 1).ToString()
+	#}
 	
 	# If format rules are specified
 	if ($FormatRules) {
@@ -431,16 +431,16 @@ function Get-HTMLChart {
 		[string]$cidbase,
 		[Object[]]$ChartObjs
 	)
-#	$html = ""
-#	$i = 0
-#	foreach ($ChartObj in $ChartObjs) {
-#		$i++
-#		$base64 = Get-ChartResource $ChartObj
-#		$cid = $cidbase + "-" + $i
-#		Add-ReportResource -cid $cid -ResourceData $Base64 -Type "Base64" -Used $true
-#		$html += "<img src='cid:$cid' />"
-#	}
-#	return $html
+	$html = ""
+	$i = 0
+	foreach ($ChartObj in $ChartObjs) {
+		$i++
+		$base64 = Get-ChartResource $ChartObj
+		$cid = $cidbase + "-" + $i
+		Add-ReportResource -cid $cid -ResourceData $Base64 -Type "Base64" -Used $true
+		$html += "<img src='cid:$cid' />"
+	}
+	return $html
 }
 
 <# Create a new Chert object, this will get fed back down the output stream as part 
@@ -853,10 +853,6 @@ if ($SetupSetting -or $config -or $GUIConfig) {
 		$MyConfig = Get-ReportHTML
 		# Always generate the report with embedded images
 		$embedConfig = $MyConfig
-		# Loop over all CIDs and replace them
-		Foreach ($cid in $global:ReportResources.Keys) {
-			$embedConfig = $embedConfig -replace ("cid:{0}" -f $cid), (Get-ReportResource $cid -ReturnType "embed")
-		}
 
 		$embedConfig | Out-File $Filename
 		Invoke-Item $Filename
@@ -995,9 +991,6 @@ if (-not $GUIConfig) {
 	# Always generate the report with embedded images
 	$embedReport = $MyReport
 	# Loop over all CIDs and replace them
-	Foreach ($cid in $global:ReportResources.Keys) {
-		$embedReport = $embedReport -replace ("cid:{0}" -f $cid), (Get-ReportResource $cid -ReturnType "embed")
-	}
 	$embedReport | Out-File -encoding ASCII -filepath $Filename
 
 	# Display to screen
