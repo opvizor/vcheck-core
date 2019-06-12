@@ -14,19 +14,19 @@ $DisplaytoScreen = $false
 # Display the report even if it is empty?
 $DisplayReportEvenIfEmpty = $false
 # Use the following item to define if an email report should be sent once completed
-$SendEmail = $false
+$SendEmail = $true
 # Please Specify the SMTP server address (and optional port) [servername(:port)]
-$SMTPSRV = "mysmtpserver.mydomain.local"
+$SMTPSRV = $Env:smtpsrv
 # Would you like to use SSL to send email?
 $EmailSSL = $false
 # Please specify the email address who will send the vCheck report
-$EmailFrom = "me@mydomain.local"
+$EmailFrom = $Env:smtpfrom
 # Please specify the email address(es) who will receive the vCheck report (separate multiple addresses with comma)
-$EmailTo = "me@mydomain.local"
+$EmailTo = $Env:smtpto
 # Please specify the email address(es) who will be CCd to receive the vCheck report (separate multiple addresses with comma)
 $EmailCc = ""
 # Please specify an email subject
-$EmailSubject = "$Server vCheck Report"
+$EmailSubject = "$Server Opvizor PA Report"
 # Send the report by e-mail even if it is empty?
 $EmailReportEvenIfEmpty = $false
 # If you would prefer the HTML file as an attachment then enable the following:
